@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Mail, Clock, CheckCircle } from 'lucide-react'
@@ -8,7 +8,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useRouter, useSearchParams } from 'next/navigation'
 import toast from 'react-hot-toast'
 
-export default function VerifyEmail() {
+function VerifyEmailContent() {
   const [countdown, setCountdown] = useState(60)
   const [canResend, setCanResend] = useState(false)
   const [isResending, setIsResending] = useState(false)
@@ -138,5 +138,39 @@ export default function VerifyEmail() {
         </CardFooter>
       </Card>
     </div>
+  )
+}
+
+// Loading component for Suspense fallback
+function VerifyEmailLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <div className="flex justify-center mb-4">
+            <Mail className="h-16 w-16 text-blue-500" />
+          </div>
+          <CardTitle className="text-2xl font-bold text-gray-900">
+            Verificando...
+          </CardTitle>
+          <CardDescription>
+            Cargando información de verificación
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-center">
+            <Clock className="h-8 w-8 animate-spin text-blue-500" />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
+export default function VerifyEmail() {
+  return (
+    <Suspense fallback={<VerifyEmailLoading />}>
+      <VerifyEmailContent />
+    </Suspense>
   )
 }
