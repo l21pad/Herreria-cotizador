@@ -7,18 +7,40 @@ export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        await fetchProfile(session.user.id);
+      try {
+        // Set a timeout to prevent infinite loading
+        const timeoutId = setTimeout(() => {
+          console.warn('Auth initialization timeout');
+          setLoading(false);
+        }, 10000); // 10 seconds timeout
+
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        clearTimeout(timeoutId);
+        
+        if (error) {
+          console.error('Error getting session:', error);
+          setError(error.message);
+          setLoading(false);
+          return;
+        }
+
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          await fetchProfile(session.user.id);
+        }
+        
+        setLoading(false);
+      } catch (error) {
+        console.error('Error in getInitialSession:', error);
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
 
     getInitialSession();
@@ -26,15 +48,21 @@ export function useAuth() {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          await fetchProfile(session.user.id);
-        } else {
-          setProfile(null);
+        try {
+          console.log('Auth state change:', event, session?.user?.id);
+          setUser(session?.user ?? null);
+          
+          if (session?.user) {
+            await fetchProfile(session.user.id);
+          } else {
+            setProfile(null);
+          }
+          
+          setLoading(false);
+        } catch (error) {
+          console.error('Error in auth state change:', error);
+          setLoading(false);
         }
-        
-        setLoading(false);
       }
     );
 
@@ -43,6 +71,7 @@ export function useAuth() {
 
   const fetchProfile = async (userId: string) => {
     try {
+      console.log('Fetching profile for user:', userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -51,12 +80,15 @@ export function useAuth() {
 
       if (error && error.code !== 'PGRST116') {
         console.error('Error fetching profile:', error);
+        setProfile(null);
         return;
       }
 
+      console.log('Profile fetched:', data);
       setProfile(data);
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error('Unexpected error fetching profile:', error);
+      setProfile(null);
     }
   };
 
@@ -160,6 +192,7 @@ export function useAuth() {
     user,
     profile,
     loading,
+    error,
     signUp,
     signIn,
     signInWithGoogle,
