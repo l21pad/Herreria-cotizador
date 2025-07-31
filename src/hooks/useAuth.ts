@@ -13,15 +13,9 @@ export function useAuth() {
     // Get initial session
     const getInitialSession = async () => {
       try {
-        // Set a timeout to prevent infinite loading
-        const timeoutId = setTimeout(() => {
-          console.warn('Auth initialization timeout - setting loading to false');
-          setLoading(false);
-        }, 5000); // 5 seconds timeout
-
-        const { data: { session }, error } = await supabase.auth.getSession();
+        console.log('Starting auth initialization...');
         
-        clearTimeout(timeoutId);
+        const { data: { session }, error } = await supabase.auth.getSession();
         
         if (error) {
           console.error('Error getting session:', error);
@@ -30,6 +24,7 @@ export function useAuth() {
           return;
         }
 
+        console.log('Session retrieved:', session?.user?.id || 'No session');
         setUser(session?.user ?? null);
         
         if (session?.user) {
@@ -43,7 +38,15 @@ export function useAuth() {
       }
     };
 
-    getInitialSession();
+    // Set a shorter timeout
+    const timeoutId = setTimeout(() => {
+      console.warn('Auth initialization timeout - setting loading to false');
+      setLoading(false);
+    }, 3000); // 3 seconds timeout
+
+    getInitialSession().finally(() => {
+      clearTimeout(timeoutId);
+    });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -105,12 +108,24 @@ export function useAuth() {
   };
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      console.log('Attempting signIn with email:', email);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    return { data, error };
+      if (error) {
+        console.error('SignIn error:', error.message, error);
+      } else {
+        console.log('SignIn successful:', data.user?.id);
+      }
+
+      return { data, error };
+    } catch (err) {
+      console.error('SignIn catch error:', err);
+      return { data: null, error: err as any };
+    }
   };
 
   const signInWithGoogle = async () => {

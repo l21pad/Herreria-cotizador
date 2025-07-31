@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calculator, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Calculator, Eye, EyeOff, AlertCircle, TestTube } from 'lucide-react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { testSupabaseConnection, createTestUser } from '@/utils/test-supabase';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -61,6 +62,26 @@ export default function LoginPage() {
       // El redirect será manejado por el callback
     } catch (error) {
       toast.error('Error inesperado con Google.');
+    }
+  };
+
+  const handleTestConnection = async () => {
+    const result = await testSupabaseConnection();
+    if (result) {
+      toast.success('Conexión a Supabase exitosa');
+    } else {
+      toast.error('Error de conexión a Supabase');
+    }
+  };
+
+  const handleCreateTestUser = async () => {
+    const result = await createTestUser();
+    if (result.success) {
+      toast.success('Usuario de prueba creado: test@herreria.com / test123456');
+      setEmail('test@herreria.com');
+      setPassword('test123456');
+    } else {
+      toast.error('Error creando usuario de prueba');
     }
   };
 
@@ -189,6 +210,33 @@ export default function LoginPage() {
                 </svg>
                 Google OAuth (En configuración)
               </Button>
+            </div>
+
+            {/* Botones de prueba - Solo para desarrollo */}
+            <div className="mt-4 border-t pt-4">
+              <p className="text-xs text-gray-500 mb-2">Herramientas de debugging:</p>
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleTestConnection}
+                  className="text-xs"
+                >
+                  <TestTube className="w-3 h-3 mr-1" />
+                  Test DB
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCreateTestUser}
+                  className="text-xs"
+                >
+                  <TestTube className="w-3 h-3 mr-1" />
+                  Crear Test User
+                </Button>
+              </div>
             </div>
 
             <div className="mt-6 text-center">
