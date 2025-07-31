@@ -253,14 +253,7 @@ export default function RegisterPage() {
                     disabled={loading}
                   />
                   <label htmlFor="agreeToTerms" className="text-sm text-gray-600">
-                    Acepto los{' '}
-                    <Link href="/terms" className="text-blue-600 hover:text-blue-800 underline">
-                      Términos de Servicio
-                    </Link>{' '}
-                    y la{' '}
-                    <Link href="/privacy" className="text-blue-600 hover:text-blue-800 underline">
-                      Política de Privacidad
-                    </Link>
+                    Acepto los Términos de Servicio y la Política de Privacidad
                   </label>
                 </div>
                 {errors.agreeToTerms && (

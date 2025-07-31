@@ -81,14 +81,13 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            El Sistema de Cotización
-            <span className="text-blue-600 block">Más Completo para Herrerías</span>
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Sistema de Cotización
+            <span className="text-blue-600 block">para Herrerías</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-            Crea cotizaciones profesionales, gestiona clientes, controla inventario y 
-            aumenta tus ventas con la plataforma diseñada especialmente para herrerías mexicanas.
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Crea cotizaciones profesionales y gestiona tu herrería de manera eficiente.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/register">
@@ -97,89 +96,46 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              Ver Demo
-            </Button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Todo lo que necesitas en una sola plataforma
+              Funciones Principales
             </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Diseñado específicamente para herrerías mexicanas, con todas las funciones 
-              que necesitas para hacer crecer tu negocio.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="text-center">
               <CardHeader>
-                <Calculator className="h-12 w-12 text-blue-600 mb-4" />
-                <CardTitle>Cotizador Avanzado</CardTitle>
+                <Calculator className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                <CardTitle className="text-lg">Cotizaciones</CardTitle>
                 <CardDescription>
-                  Crea cotizaciones detalladas con múltiples trabajos, materiales y 
-                  precios actualizados por estado.
+                  Crea cotizaciones profesionales con materiales y precios actualizados.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="text-center">
               <CardHeader>
-                <Users className="h-12 w-12 text-green-600 mb-4" />
-                <CardTitle>Gestión de Clientes</CardTitle>
+                <Users className="h-10 w-10 text-green-600 mx-auto mb-3" />
+                <CardTitle className="text-lg">Clientes</CardTitle>
                 <CardDescription>
-                  Base de datos completa con historial de trabajos, contacto directo 
-                  por WhatsApp y seguimiento de proyectos.
+                  Gestiona tu base de datos de clientes y historial de trabajos.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="text-center">
               <CardHeader>
-                <FileText className="h-12 w-12 text-purple-600 mb-4" />
-                <CardTitle>PDFs Profesionales</CardTitle>
+                <FileText className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                <CardTitle className="text-lg">PDFs</CardTitle>
                 <CardDescription>
-                  Genera cotizaciones en PDF con tu logo, datos fiscales y envío 
-                  automático por email y WhatsApp.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <BarChart3 className="h-12 w-12 text-orange-600 mb-4" />
-                <CardTitle>Reportes y Analytics</CardTitle>
-                <CardDescription>
-                  Analiza tus ventas, materiales más usados, clientes frecuentes 
-                  y exporta todo a Excel.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Smartphone className="h-12 w-12 text-pink-600 mb-4" />
-                <CardTitle>App Móvil (PWA)</CardTitle>
-                <CardDescription>
-                  Instala como app en tu celular, funciona offline y sincroniza 
-                  cuando tengas internet.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Shield className="h-12 w-12 text-red-600 mb-4" />
-                <CardTitle>Facturación 4.0</CardTitle>
-                <CardDescription>
-                  Cumple con el SAT mexicano: CFDI, regímenes fiscales, métodos 
-                  de pago y todos los campos obligatorios.
+                  Genera cotizaciones en PDF y envíalas por email automáticamente.
                 </CardDescription>
               </CardHeader>
             </Card>

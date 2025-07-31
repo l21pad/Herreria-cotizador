@@ -121,13 +121,16 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <Link 
+              <div className="flex items-center justify-end">
+                {/* <Link 
                   href="/auth/forgot-password" 
                   className="text-sm text-blue-600 hover:text-blue-800"
                 >
                   ¿Olvidaste tu contraseña?
-                </Link>
+                </Link> */}
+                <span className="text-sm text-gray-500">
+                  ¿Problemas para acceder? Contacta soporte
+                </span>
               </div>
 
               <Button 
@@ -198,14 +201,7 @@ export default function LoginPage() {
 
         <div className="mt-8 text-center">
           <p className="text-xs text-gray-500">
-            Al iniciar sesión, aceptas nuestros{' '}
-            <Link href="/terms" className="underline">
-              Términos de Servicio
-            </Link>{' '}
-            y{' '}
-            <Link href="/privacy" className="underline">
-              Política de Privacidad
-            </Link>
+            Al iniciar sesión, aceptas nuestros Términos de Servicio y Política de Privacidad
           </p>
         </div>
       </div>
