@@ -12,10 +12,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
-console.log('Supabase configuration:', {
-  url: supabaseUrl,
-  hasKey: !!supabaseAnonKey
-});
+// Only log in development
+if (process.env.NODE_ENV === 'development') {
+  console.log('Supabase configuration:', {
+    url: supabaseUrl,
+    hasKey: !!supabaseAnonKey
+  });
+}
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {

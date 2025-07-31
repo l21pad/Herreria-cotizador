@@ -25,9 +25,10 @@ const navigation = [
   { name: 'Cotizaciones', href: '/dashboard/quotes', icon: Calculator },
   { name: 'Clientes', href: '/dashboard/clients', icon: Users },
   { name: 'Materiales', href: '/dashboard/materials', icon: Package },
-  { name: 'Galería', href: '/dashboard/gallery', icon: Image },
-  { name: 'Reportes', href: '/dashboard/reports', icon: BarChart3 },
-  { name: 'Colaboradores', href: '/dashboard/collaborators', icon: UserPlus },
+  // Temporalmente comentadas hasta crear las páginas
+  // { name: 'Galería', href: '/dashboard/gallery', icon: Image },
+  // { name: 'Reportes', href: '/dashboard/reports', icon: BarChart3 },
+  // { name: 'Colaboradores', href: '/dashboard/collaborators', icon: UserPlus },
 ];
 
 export default function DashboardLayout({

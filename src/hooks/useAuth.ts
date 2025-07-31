@@ -15,7 +15,7 @@ export function useAuth() {
       try {
         // Set a timeout to prevent infinite loading
         const timeoutId = setTimeout(() => {
-          console.warn('Auth initialization timeout');
+          console.warn('Auth initialization timeout - setting loading to false');
           setLoading(false);
         }, 10000); // 10 seconds timeout
 
@@ -49,7 +49,7 @@ export function useAuth() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         try {
-          console.log('Auth state change:', event, session?.user?.id);
+          // console.log('Auth state change:', event, session?.user?.id);
           setUser(session?.user ?? null);
           
           if (session?.user) {
@@ -71,7 +71,7 @@ export function useAuth() {
 
   const fetchProfile = async (userId: string) => {
     try {
-      console.log('Fetching profile for user:', userId);
+      // console.log('Fetching profile for user:', userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -84,7 +84,7 @@ export function useAuth() {
         return;
       }
 
-      console.log('Profile fetched:', data);
+      // console.log('Profile fetched:', data);
       setProfile(data);
     } catch (error) {
       console.error('Unexpected error fetching profile:', error);
